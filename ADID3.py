@@ -57,6 +57,13 @@ def id3(data, labels, features):
         tree[best_feature][value] = id3(subset_data, subset_labels, new_features)
      
     return tree   
+
+# Ejemplo de uso 
+feature =["clima", "temperatura"]
+labels = [sample[-1] for sample in data]
+tree = id3(data, labels, feature)
+print (tree)
+
         
         
     
