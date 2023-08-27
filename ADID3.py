@@ -29,3 +29,12 @@ def ganancia_informac(data, labels, feature_idx):
         subset_labels = [sample[-1] for sample in data if sample[feature_idx] == value]
         weighted_entropy += len(subset_labels) / len(labels) * entropy(subset_labels)
     return total_entropy - weighted_entropy   
+
+# Funcion para selecionar el mejor atributo
+def selec_mejor_atributo(data, labels):
+    num_features = len(data[0]) - 1
+    gains = [ganancia_informac(data, labels, i) for i in range(num_features)]
+    best_feature_idx = gains.index(max(gains))
+    return best_feature_idx
+                       
+                       
