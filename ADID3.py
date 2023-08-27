@@ -9,3 +9,13 @@ data = [
     ["lluvioso", "alta", "si"],
     ["lluvioso", "suave", "si"],
 ]   
+
+# Funcion para calcular la Entropia
+def entropy(labels):
+    label_counts = Counter(labels)
+    total_samples = len(labels)
+    entropy =0
+    for label, count in label_counts.items():
+        probability = count / total_samples
+        entropy -= probability * math.log2(probability)
+    return entropy
