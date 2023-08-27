@@ -19,3 +19,13 @@ def entropy(labels):
         probability = count / total_samples
         entropy -= probability * math.log2(probability)
     return entropy
+
+# Funcion para calcular la Ganancia de Informacion
+def ganancia_informac(data, labels, feature_idx):
+    total_entropy = entropy(labels)
+    unique_values = set([sample[feature_idx] for sample in data])
+    weighted_entropy = 0
+    for value in unique_values:
+        subset_labels = [sample[-1] for sample in data if sample[feature_idx] == value]
+        weighted_entropy += len(subset_labels) / len(labels) * entropy(subset_labels)
+    return total_entropy - weighted_entropy   
