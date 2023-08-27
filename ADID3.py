@@ -36,5 +36,29 @@ def selec_mejor_atributo(data, labels):
     gains = [ganancia_informac(data, labels, i) for i in range(num_features)]
     best_feature_idx = gains.index(max(gains))
     return best_feature_idx
+
+# Funcion para construir en arbol de Decision usando ID3
+def id3(data, labels, features):
+    if len(set(labels)) ==1:
+        return labels[0]
+    if len(features) == 0:
+        majority_label = Counter(labels).most_common(1)[0][0]
+        return majority_label
+    
+    best_feature_idx = selec_mejor_atributo(data, labels)
+    best_feature = features[best_feature_idx]
+    
+    tree ={best_feature: []}
+    unique_values = set([sample[best_feature_idx] for sample in data])
+    for value in unique_values: 
+        subset_data =[sample for sample in data if sample[best_feature_idx] == value]
+        subset_labels = [sample[-1] for sample in subset_data]
+        new_features = [f for i, f in enumerate(features) if i != best_feature_idx]
+        tree[best_feature][value] = id3(subset_data, subset_labels, new_features)
+     
+    return tree   
+        
+        
+    
                        
                        
